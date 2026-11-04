@@ -1,0 +1,33 @@
+{
+  "name": "filey",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "generate": "node --env-file=.env ./node_modules/drizzle-kit/bin.cjs generate",
+    "migrate": "node --env-file=.env ./node_modules/drizzle-kit/bin.cjs migrate",
+    "typecheck": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
+    "test:assert-db": "node --env-file=.env.test vitest/assertTestDb.ts",
+    "migrate:test": "npm run test:assert-db && node --env-file=.env.test ./node_modules/drizzle-kit/bin.cjs migrate",
+    "test": "npm run migrate:test && node --env-file=.env.test ./node_modules/vitest/vitest.mjs --run",
+    "start": "node --env-file=.env dist/index.js",
+    "dev": "npm run build && npm run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.6",
+    "drizzle-kit": "^0.31.11",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.5"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.4",
+    "express": "^5.3.0",
+    "postgres": "^4.0.0"
+  }
+}
