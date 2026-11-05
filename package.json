@@ -12,7 +12,7 @@
     "migrate:test": "npm run test:assert-db && node --env-file=.env.test ./node_modules/drizzle-kit/bin.cjs migrate",
     "test": "npm run migrate:test && node --env-file=.env.test ./node_modules/vitest/vitest.mjs --run",
     "start": "node --env-file=.env dist/index.js",
-    "dev": "npm run build && npm run start"
+    "dev": "npm run build && npm run start | pino-pretty"
   },
   "keywords": [],
   "author": "",
@@ -22,12 +22,14 @@
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.6",
     "drizzle-kit": "^0.31.11",
+    "pino-pretty": "^13.2.0",
     "typescript": "^7.0.2",
     "vitest": "^5.0.5"
   },
   "dependencies": {
     "drizzle-orm": "^0.45.4",
     "express": "^5.3.0",
+    "pino": "^10.4.0",
     "postgres": "^4.0.0"
   }
 }
