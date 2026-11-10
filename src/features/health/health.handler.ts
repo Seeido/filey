@@ -1,14 +1,13 @@
 import type { Request, Response } from "express";
 import { checkDatabaseHealth } from "./health.queries.js";
-import { logger } from "../../lib/logger.js";
 import { withTimeoutMs } from "../../lib/timeout.js";
 
-export async function getHealth(_req: Request, res: Response) {
+export async function getHealth(req: Request, res: Response) {
   try {
     await withTimeoutMs(checkDatabaseHealth(), 10 * 1000);
     return res.status(200).send();
   } catch (err) {
-    logger.error({ err }, "Database health check failed");
+    req.log.error({ err }, "Database health check failed");
     res.status(503).send();
   }
 }

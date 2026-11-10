@@ -37,3 +37,6 @@
 
 - The base logger (`logger.ts`) doesn't just log but now also redacts sensitive information. Redaction at the base/lowest level makes sure child loggers inherit redaction.
 - Redaction tests build their own logger to be able to check the logs and pass log level "info" in case `.env.test` has it set as something else. The log length check makes sure an empty capture can’t pass.
+- pino-http is used on top of pino. pino alone can be used to create Express.js middleware for all this but pino-http makes it simpler and accounts for all the edgecases I could miss.
+- The request logger (`requestLogger.ts`) also sets headers like `X-Request-Id` since it's a middleware used for all endpoints anyways.
+- Have handlers use `req.log` (provided by the requestLogger middleware) to log errors instead of the base logger to automatically include request info as its id, method, url, etc.
