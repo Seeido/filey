@@ -32,3 +32,8 @@
 - Fake timers: the synchronous `advanceTimersByTime` is enough unless a timer is scheduled after a promise resolves.
 - Test endpoints with supertest. `vi.mock` for the whole queries module, since apparently spying on ES module exports doesn't work reliably.
 - `result.body` is only filled for parsed formats like JSON. A plain-text leak would pass a body check. Assert on `result.text`, and check headers too.
+
+## 10 Nov 2026: Logging HTTP requests
+
+- The base logger (`logger.ts`) doesn't just log but now also redacts sensitive information. Redaction at the base/lowest level makes sure child loggers inherit redaction.
+- Redaction tests build their own logger to be able to check the logs and pass log level "info" in case `.env.test` has it set as something else. The log length check makes sure an empty capture can’t pass.
