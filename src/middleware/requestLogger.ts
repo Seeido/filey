@@ -3,6 +3,7 @@ import { logger } from "../lib/logger.js";
 
 export const requestLogger = pinoHttp({
   logger,
+  // For now, we won't use client-sent IDs, for safety reasons
   genReqId: (_req, res) => {
     const id = crypto.randomUUID();
     res.setHeader("X-Request-Id", id);

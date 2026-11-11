@@ -9,6 +9,7 @@ export function createLogger(
     {
       level,
       redact: [
+        // Covers credential-bearing headers for now, new fields should be added here and to the tests
         "req.headers.authorization",
         "req.headers.cookie",
         'res.headers["set-cookie"]',
