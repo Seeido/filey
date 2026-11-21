@@ -40,3 +40,9 @@
 - pino-http is used on top of pino. pino alone can be used to create Express.js middleware for all this but pino-http makes it simpler and accounts for all the edgecases I could miss.
 - The request logger (`requestLogger.ts`) also sets headers like `X-Request-Id` since it's a middleware used for all endpoints anyways.
 - Have handlers use `req.log` (provided by the requestLogger middleware) to log errors instead of the base logger to automatically include request info as its id, method, url, etc.
+
+## 14-20 Nov 2026: Error handling
+
+- Error handling is a central process living in the outermost layer. Services just throw errors with a kind. This way it's not dependent on HTTP, and a different layer (like CLI) can be easily implemented.
+- Catch only what you can give meaning to. Rethrow everything else, since swallowing errors hides bugs.
+- Rely on pino-http to include the error in the summary line (res.err = err) instead of logging manually, since that'd create two logs for no reason, one without context.
